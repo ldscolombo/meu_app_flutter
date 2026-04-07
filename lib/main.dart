@@ -21,7 +21,6 @@ class MeuApp extends StatelessWidget{
    );
   }
 }
-
 class PaginaInicial extends StatefulWidget{
   @override
   State<PaginaInicial> createState() => PaginaInicialState();
@@ -30,28 +29,51 @@ class PaginaInicial extends StatefulWidget{
 class PaginaInicialState extends State<PaginaInicial>{
   String texto = 'olá, mundo!';
   int contador = 0;
+  int counter = 0;
+
+  final TextEditingController _textEditingController = TextEditingController();
+
 @override
   Widget build(BuildContext context) {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
-            texto,
-            style: TextStyle(fontSize: 20),
+          Text(texto,),
+          TextField(
+            controller: _textEditingController,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+              ),
+            ),
           ),
-          SizedBox(height: 20),
           ElevatedButton(
-            child: Text('mudar texto'),
-            onPressed: () {
-              setState(() {
-                contador++;
-                texto = "Você alterou o texto ${++contador} ${contador >1 ? "vezes" : "vez"}";
-              });
-            },
-          )
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Theme.of(context).cardColor
+          ),
+          onPressed: () {
+            print(_textEditingController.text);
+            setState(() {
+              if(nome.isNotEmpty){
+                texto = "Olá, $nome";
+              }
+              else{
+                texto = "Olá, ninguém?";
+              }
+            });
+          },
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text("clique em mim!"),
+              Icon(Icons.ads_click_outlined)
+            ],
+          ),
+         ),
         ],
       ),
     );
   }
 }
+
